@@ -25,14 +25,14 @@ public class BatchConfig {
 	
 	@Bean
 	public Job imprimiJob() {
-		return jobBuilderFactory
+		return this.jobBuilderFactory
 				.get("imprime")
-				.start(imprimeOla())
+				.start(imprimeOlaJob())
 				.build();		
 	}
 
-	public Step imprimeOla() {
-		return stepBuilderFactory
+	public Step imprimeOlaJob() {
+		return this.stepBuilderFactory
 				.get("imperime")
 				.tasklet(new Tasklet() {
 					
