@@ -15,30 +15,28 @@ import org.springframework.context.annotation.Configuration;
 
 @EnableBatchProcessing
 @Configuration
-public class BatchConfig {
-	
+public class PrimeiroJobSpringBatchConfig {
 	@Autowired
 	private JobBuilderFactory jobBuilderFactory;
-	
 	@Autowired
 	private StepBuilderFactory stepBuilderFactory;
 	
 	@Bean
-	public Job imprimiJob() {
-		return this.jobBuilderFactory
-				.get("imprime")
-				.start(imprimeOlaJob())
-				.build();		
+	public Job imprimeOlaJob() {
+		return jobBuilderFactory
+				.get("imprimeOlaJob")
+				.start(imprimeOlaStep())
+				.build();
 	}
-
-	public Step imprimeOlaJob() {
-		return this.stepBuilderFactory
-				.get("imperime")
+	
+	public Step imprimeOlaStep() {
+		return stepBuilderFactory
+				.get("imprimeOlaStep")
 				.tasklet(new Tasklet() {
 					
 					@Override
 					public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-						System.out.println("Ola mundo");
+						System.out.println("Olá, mundo!");
 						return RepeatStatus.FINISHED;
 					}
 				})
